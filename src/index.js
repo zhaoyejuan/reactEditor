@@ -5,7 +5,9 @@ import {
   CompositeDecorator,
   RichUtils,
   KeyBindingUtil,
-  getDefaultKeyBinding
+  getDefaultKeyBinding,
+  Draft,
+  Immutable
 } from 'draft-js';
 
 import styleMap from './config/styleMap';
@@ -121,6 +123,14 @@ const myKeyBindingFn = e => {
   return getDefaultKeyBinding(e);
 }
 
+const blockRenderMap = Immutable.Map({
+  "hr": {
+    element: 'hr'
+  }
+});
+
+const extendedBlockRenderMap = Draft.defaultDraftBlockRenderMap.merge(blockRenderMap.blockRenderMap);
+
 class App extends Component {
   constructor(props){
     super(props);
@@ -173,6 +183,7 @@ class App extends Component {
             placeholder="请输入……"
             ref="editor"
             stripPastedStyles={true}
+            blockRenderMap={extendedBlockRenderMap}
           />
         </div>
       </div>

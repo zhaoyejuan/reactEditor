@@ -1,6 +1,9 @@
 import React from 'react';
 import { Tooltip } from "antd";
 
+import Do from './do';
+import Font from './font';
+
 class Banner extends React.Component{
     constructor(props){
         super(props)
@@ -56,15 +59,34 @@ class Banner extends React.Component{
                 component: <Blockquote editor={editor} />
             },{
                 title: '代码',
-                component: <Code editor={editor} />
+                component: <Font type="CODE" editor={editor} />
+            },{
+                title: '粗体',
+                component: <Font type="BLOD" editor={editor} />
+            },{
+                title: '斜体',
+                component: <Font type="ITALIC" editor={editor} />
+            },{
+                title: '下划线',
+                component: <Font type="UNDERLINE" editor={editor} />
+            },{
+                title: '删除线',
+                component: <Font type="STRIKETHROUGH" editor={editor} />
             }
         ]
         return(
-            Icons.map(item => {
-                return (
-                    <Tooltip placement="bottom" title={item.title}>{item.component}</Tooltip>
-                )
-            })
+            <div className="RichEditor-controls">
+                {
+                    Icons.map(item => {
+                        return (
+                                <Tooltip placement="bottom" title={item.title}>
+                                    <span className="RichEditor-styleButton">{item.component}</span>
+                                </Tooltip>
+                        )
+                    })
+                }
+            </div>
+
         )
     }
 }
